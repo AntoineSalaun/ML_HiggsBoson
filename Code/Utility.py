@@ -90,3 +90,63 @@ def compute_loss(y, tx, w):
     N=np.size(y)
     e=y-tx.dot(w)
     return np.transpose(e)@e/(2*N)
+
+def MSE(target, estimated):
+    return np.average((target - estimated) ** 2)
+
+def compute_gradient(y, tx, w):
+    """Compute the gradient."""
+    N=len(y)
+    error=(y-tx@w.transpose())
+    grad=-tx.transpose()@error/N
+    return grad
+
+def compute_loss_MSE(y, tx, w):
+    """Calculate the loss.
+        MSE loss"""
+    N=np.size(y)
+    e=y-tx.dot(w)
+    return np.transpose(e)@e/(2*N)
+
+def cross_validation(folds, X, y, initial_w, max_iters, gamma, method = 'least_squares_GD' ,):
+    
+    # split the data in folds
+    X_split = np.array_split(X, folds, axis=1)
+    y_split = np.array_split(y, folds)
+    
+    # Define the arrays to store weights, losses and MSE for the K trains and tests
+    weights = np.empty(folds, dtype=object) 
+    losses = np.empty(folds, dtype=object) 
+    MSE = np.empty(folds, dtype=object) 
+    
+    # For each fold :
+    for i in range(folds):
+
+        # The training will be done on every fold except the running number
+        fold_train = list(range(folds))
+        del fold_train[i]
+    
+        # Creating the train set by joining together every other fold
+        X_train= np.concatenate([X_split[k] for k in fold_train],axis=1)
+        y_train= np.concatenate([y_split[k] for k in fold_train])
+    
+        # test sets
+        X_test= X_split[i]
+        y_test= y_split[i]
+    
+        # The model is trained
+        if method == 'least_squares_GD':
+            weights[i], losses[i] = least_squares_GD(y_train, X_train.T , initial_w, max_iters, gamma)
+    
+        # The model is tested with a MSE computation
+        MSE[i] = compute_loss_MSE(y_test, X_test.T, weights[i])
+    
+    # To dexcribe the model, we average weights, losses and MSE
+    mean_weights = np.mean(weights, axis=0) 
+    mean_losses = np.mean(losses, axis=0) 
+    mean_MSE = MSE.mean()
+
+    return mean_weights, mean_losses, mean_MSE
+    
+    
+    
