@@ -17,7 +17,7 @@ def compute_loss_MSE(y, tx, w):
     Returns
     Mean squared error : scalar     
     """
-    return 2*np.mean((y-tx@w)**2)
+    return np.mean((y-tx@w)**2)
 
 def compute_loss_MAE(y, tx, w):
     """
