@@ -11,6 +11,8 @@ This repository has all the documents for the project 1 for the EPFL course of M
 ## Partcipants
 
 Borja Rodriguez Mateos : borja.rodriguezmateos@epfl.ch
+
 Antoine Salaun : antoine.salaun@epfl.ch
+
 David Nikravech : david.nikravech@epfl.ch
 
