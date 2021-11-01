@@ -239,3 +239,14 @@ def gamma_Param_Scan_visualization(gamma,method, mse_tr0,mse_tr1,mse_tr2,mse_tr3
     plt.title("Step-size parameter_scan for "+method)
     plt.legend(loc=2)
     plt.grid(True)
+
+ #--------------------------Accuracy computation---------------------------------------
+def accuracy(y_test, tx_test, weights):
+    prediction = tx_test@weights
+    prediction_bo = prediction
+    for i in range(len(prediction)):
+        if prediction[i]<0.5:
+            prediction_bo[i] = 0
+        if prediction[i]>=0.5:
+            prediction_bo[i] = 1
+    return(1 - abs(y_test - prediction_bo).mean())
