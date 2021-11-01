@@ -48,7 +48,7 @@ def least_squares_GD(y, tx, initial_w, max_iters, gamma):
         w = w - gamma * gradient
         w_list.append(w)
         loss_list.append(loss)
-    return w_list[max_iters-1], loss_list[max_iters-1]
+    return w_list[-1], loss_list[-1]
     
 
 def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
@@ -78,7 +78,7 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
             loss = compute_loss_MSE(y_n, tx_n, w)
             w_list.append(w)
             loss_list.append(loss)
-    return w_list[max_iters-1], loss_list[max_iters-1]
+    return w_list[-1], loss_list[-1]
        
 
 
@@ -136,7 +136,7 @@ def logistic_regression(y, tx, initial_w, max_iters, gamma):
         loss =  compute_loss_LG(y_resize, tx, w)
         w_list.append(w)
         loss_list.append(loss)
-    return w_list[max_iters-1],loss_list[max_iters-1]
+    return w_list[-1],loss_list[-1]
 
 
 def reg_logistic_regression(y, tx, l, initial_w, max_iters, gamma):
@@ -170,5 +170,5 @@ def reg_logistic_regression(y, tx, l, initial_w, max_iters, gamma):
         loss_list.append(loss)
         if (n_iter > 1) and (np.abs(loss_list[-1] - loss_list[-2]) <= 1e-8):
             break
-    return w_list[max_iters-1],loss_list[max_iters-1]
+    return w_list[-1],loss_list[-1]
     

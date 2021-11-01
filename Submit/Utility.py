@@ -1,6 +1,5 @@
 import numpy as np
 
-import matplotlib.pyplot as plt
 
 #-------------------Loss Functions--------------------------
 
@@ -133,7 +132,7 @@ def calculate_gradient_LR(y, tx, w):
 
 #----------------------------------Loading the data-------------------------------------------
 
-def data_loader(FILEPATH = 'data', train = True, onehot = True, nan = 'Mean', jet_split = True):
+def data_loader(FILEPATH = 'data', train = True, onehot = True, nan = 'Mean', jet_split = False):
     '''
     Function for data loading and pre processing of the data. 
     Many parameters can be given in order to modulate the preprocessing so 
@@ -210,9 +209,11 @@ def data_loader(FILEPATH = 'data', train = True, onehot = True, nan = 'Mean', je
         target_onehot_3 = [i for (i, j) in zip(target_onehot, jet3_mask) if j]
         target_onehot = [target_onehot_0, target_onehot_1, target_onehot_2, target_onehot_3]
     if train :        
-        return np.array(data_norm,dtype=object), np.array(target_onehot,dtype=object)
+        return np.array(data_norm), np.array(target_onehot)
     else :
-        return np.array(data_norm,dtype=object)
+        return np.array(data_norm)
+    
+    
     
 #------------------------Plot the results, esp. the Parameter Scan--------------------------------------------------
 
