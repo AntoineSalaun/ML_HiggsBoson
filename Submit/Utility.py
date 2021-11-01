@@ -1,5 +1,6 @@
 import numpy as np
 
+import matplotlib.pyplot as plt
 
 #-------------------Loss Functions--------------------------
 
@@ -132,7 +133,7 @@ def calculate_gradient_LR(y, tx, w):
 
 #----------------------------------Loading the data-------------------------------------------
 
-def data_loader(FILEPATH = 'data', train = True, onehot = True, nan = 'Mean', jet_split = False):
+def data_loader(FILEPATH = 'data', train = True, onehot = True, nan = 'Mean', jet_split = True):
     '''
     Function for data loading and pre processing of the data. 
     Many parameters can be given in order to modulate the preprocessing so 
@@ -209,8 +210,32 @@ def data_loader(FILEPATH = 'data', train = True, onehot = True, nan = 'Mean', je
         target_onehot_3 = [i for (i, j) in zip(target_onehot, jet3_mask) if j]
         target_onehot = [target_onehot_0, target_onehot_1, target_onehot_2, target_onehot_3]
     if train :        
-        return np.array(data_norm), np.array(target_onehot)
+        return np.array(data_norm,dtype=object), np.array(target_onehot,dtype=object)
     else :
-        return np.array(data_norm)
+        return np.array(data_norm,dtype=object)
     
+#------------------------Plot the results, esp. the Parameter Scan--------------------------------------------------
+
+def lambda_Param_Scan_visualization(lambds,method, mse_tr0,mse_tr1,mse_tr2,mse_tr3):
+    """visualization the curves of mse_tr with respect to lambda ."""
+    plt.semilogx(lambds, mse_tr0, marker=".", color='b', label='train error0')
+    plt.semilogx(lambds, mse_tr1, marker=".", color='r', label='train error1')
+    plt.semilogx(lambds, mse_tr2, marker=".", color='k', label='train error2')
+    plt.semilogx(lambds, mse_tr3, marker=".", color='y', label='train error3')
+    plt.xlabel("lambda")
+    plt.ylabel("mse")
+    plt.title("Penalty term parameter_scan for "+method)
+    plt.legend(loc=2)
+    plt.grid(True)
     
+def gamma_Param_Scan_visualization(gamma,method, mse_tr0,mse_tr1,mse_tr2,mse_tr3):
+    """visualization the curves of mse_tr with respect to gamma ."""
+    plt.semilogx(gamma, mse_tr0, marker=".", color='b', label='train error0')
+    plt.semilogx(gamma, mse_tr1, marker=".", color='r', label='train error1')
+    plt.semilogx(gamma, mse_tr2, marker=".", color='k', label='train error2')
+    plt.semilogx(gamma, mse_tr3, marker=".", color='y', label='train error3')
+    plt.xlabel("gamma")
+    plt.ylabel("mse")
+    plt.title("Step-size parameter_scan for "+method)
+    plt.legend(loc=2)
+    plt.grid(True)
