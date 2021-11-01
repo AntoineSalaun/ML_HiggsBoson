@@ -217,29 +217,26 @@ def data_loader(FILEPATH = 'data', train = True, onehot = True, nan = 'Mean', je
     
 #------------------------Plot the results, esp. the Parameter Scan--------------------------------------------------
 
-def lambda_Param_Scan_visualization(lambds,method, mse_tr0,mse_tr1,mse_tr2,mse_tr3):
+
+def lambda_Param_Scan_visualization(lambds,method, mse_tr0):
     """visualization the curves of mse_tr with respect to lambda ."""
-    plt.semilogx(lambds, mse_tr0, marker=".", color='b', label='train error0')
-    plt.semilogx(lambds, mse_tr1, marker=".", color='r', label='train error1')
-    plt.semilogx(lambds, mse_tr2, marker=".", color='k', label='train error2')
-    plt.semilogx(lambds, mse_tr3, marker=".", color='y', label='train error3')
+    plt.semilogx(lambds, mse_tr0, marker=".", color='b', label='train error')
     plt.xlabel("lambda")
     plt.ylabel("mse")
     plt.title("Penalty term parameter_scan for "+method)
     plt.legend(loc=2)
     plt.grid(True)
+    plt.savefig(method+"lambda")
     
-def gamma_Param_Scan_visualization(gamma,method, mse_tr0,mse_tr1,mse_tr2,mse_tr3):
+def gamma_Param_Scan_visualization(gamma,method, mse_tr0):
     """visualization the curves of mse_tr with respect to gamma ."""
-    plt.semilogx(gamma, mse_tr0, marker=".", color='b', label='train error0')
-    plt.semilogx(gamma, mse_tr1, marker=".", color='r', label='train error1')
-    plt.semilogx(gamma, mse_tr2, marker=".", color='k', label='train error2')
-    plt.semilogx(gamma, mse_tr3, marker=".", color='y', label='train error3')
+    plt.semilogx(gamma, mse_tr0, marker=".", color='b', label='train error')
     plt.xlabel("gamma")
     plt.ylabel("mse")
     plt.title("Step-size parameter_scan for "+method)
     plt.legend(loc=2)
     plt.grid(True)
+    plt.savefig(method+"gamma")
 
  #--------------------------Accuracy computation---------------------------------------
 def accuracy(y_test, tx_test, weights):
