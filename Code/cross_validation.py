@@ -10,8 +10,7 @@ def cross_validation(folds, X, y, initial_w, max_iters, gamma, lambda_, method =
     
     # Define the arrays to store weights, losses and MSE for the K trains and tests
     weights = np.empty(folds, dtype=object) 
-    losses = np.empty(folds, dtype=object) 
-    MSE = np.empty(folds, dtype=object) 
+    losses = np.empty(folds, dtype=object)
     
     # For each fold :
     for i in range(folds):
@@ -42,15 +41,12 @@ def cross_validation(folds, X, y, initial_w, max_iters, gamma, lambda_, method =
         if method == 'reg_logistic_regression':
             weights[i], losses[i] = reg_logistic_regression(y_train, X_train.T, lambda_, initial_w, max_iters, gamma)
         
-        # The model is tested with a MSE computation on the last fold
-        MSE[i] = compute_loss_MSE(y_test, X_test.T, weights[i])
     
     # To dexcribe the model, we average weights, losses and MSE
     mean_weights = np.mean(weights, axis=0) 
-    mean_losses = np.mean(losses, axis=0) 
-    mean_MSE = MSE.mean()
+    mean_losses = np.mean(losses, axis=0)
 
-    return mean_weights, mean_losses, mean_MSE
+    return mean_weights, mean_losses
     
 def normal_init_w(size, mu = 0, sigma = 0.1):
     return np.random.normal(mu, sigma, size)
